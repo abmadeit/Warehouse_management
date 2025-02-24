@@ -20,8 +20,8 @@ class User(models.Model):
         ('operator', 'Operator'),
       ]
     name = models.CharField(max_length=200)
-    email = models.EmailField(unique=True, blank=True, null=True)
-    role = models.CharField(max_length=9, blank=True, null=True, choices=ROLE_CHOICES)
+    email = models.EmailField(unique=True, null=True, blank=True)
+    role = models.CharField(max_length=9, null=True, blank=True, choices=ROLE_CHOICES)
 
 
     USERNAME_FIELD = 'email'
@@ -50,13 +50,14 @@ class Warehouse(models.Model):
     name = models.CharField(max_length=225)
     location = models.CharField(max_length=225)
     capacity = models.IntegerField()
-    manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='warehouses', unique=True)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='warehouses')
 
     def __str__(self):
         return self.name
     
 class Category(models.Model):
-    name = models.CharField(max_length=225)
+    id = models.AutoField(primary_key=True)  # Explicitly set ID (Optional)
+    name = models.CharField(max_length=225, unique=True, blank=True, null=True)
     description = models.TextField()
 
     def __str__(self):

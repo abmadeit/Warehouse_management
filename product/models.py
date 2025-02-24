@@ -9,7 +9,7 @@ class Product(models.Model):
     name = models.CharField(max_length=225)
     description = models.TextField()
     unit_price = models.IntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, to_field="name")
     sku = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     
 

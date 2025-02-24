@@ -2,6 +2,11 @@ from .models import *
 from rest_framework import serializers
 
 class ProductSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='name'
+    )
+ 
     class Meta:
         model = Product
         fields = '__all__'
